@@ -57,7 +57,7 @@ public class MainActivity extends AppCompatActivity {
                 if(!editextvalue.startsWith("http://"))
                     editextvalue = "http://" + editextvalue;
 
-                String url = editextvalue;
+                String url = editextvalue.replace(" ","");
                 brow.loadUrl(url);
 
                 //Hide keyboard after using EditText
@@ -95,8 +95,6 @@ public class MainActivity extends AppCompatActivity {
                 brow.clearHistory();
             }
         });
-
-
     }
 }
 
