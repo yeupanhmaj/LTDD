@@ -54,7 +54,10 @@ public class MainActivity extends AppCompatActivity {
         websettings.setJavaScriptEnabled(true);
 
         brow.loadUrl("https://google.com.vn");
-
+        addEvent();
+    }
+    public void addEvent()
+    {
         go.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
