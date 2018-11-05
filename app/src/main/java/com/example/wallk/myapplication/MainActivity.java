@@ -6,6 +6,7 @@ import com.microsoft.appcenter.crashes.Crashes;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.view.KeyEvent;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.webkit.WebChromeClient;
@@ -31,7 +32,7 @@ public class MainActivity extends AppCompatActivity {
         progressBar = (ProgressBar)findViewById(R.id.progressBar);
         brow= (WebView)findViewById(R.id.wv_brow);
         urledit = (EditText)findViewById(R.id.et_url);
-        go = (Button)findViewById(R.id.btn_go);
+        //go = (Button)findViewById(R.id.btn_go);
         forward = (Button)findViewById(R.id.btn_fwd);
         back = (Button)findViewById(R.id.btn_bck);
         clear = (Button)findViewById(R.id.btn_clear);
@@ -102,6 +103,28 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 brow.clearHistory();
+            }
+        });
+        urledit.setOnKeyListener(new View.OnKeyListener() {
+            public boolean onKey(View v, int keyCode, KeyEvent event) {
+                // If the event is a key-down event on the "enter" button
+                if ((event.getAction() == KeyEvent.ACTION_DOWN) &&
+                        (keyCode == KeyEvent.KEYCODE_ENTER)) {
+                    // Perform action on key press
+                    String editextvalue = urledit.getText().toString();
+
+                    if(!editextvalue.startsWith("http://"))
+                        editextvalue = "http://" + editextvalue;
+
+                    String url = editextvalue.replace(" ","");
+                    brow.loadUrl(url);
+
+                    //Hide keyboard after using EditText
+                    InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
+                    imm.hideSoftInputFromWindow(urledit.getWindowToken(),0);
+                    return true;
+                }
+                return false;
             }
         });
     }
