@@ -6,9 +6,11 @@ import com.microsoft.appcenter.crashes.Crashes;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Patterns;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
+import android.webkit.URLUtil;
 import android.webkit.WebChromeClient;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
@@ -37,6 +39,11 @@ public class MainActivity extends AppCompatActivity {
         back = (Button)findViewById(R.id.btn_bck);
         clear = (Button)findViewById(R.id.btn_clear);
         reload = (Button)findViewById(R.id.btn_reload);
+        setupBrow(brow);
+        addEvent();
+    }
+    public void setupBrow(WebView brow)
+    {
         brow.setWebViewClient(new ourViewClient());
         brow.setWebChromeClient(new WebChromeClient(){
             @Override
@@ -50,16 +57,15 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         });
-
+        //allow java script
         WebSettings websettings = brow.getSettings();
         websettings.setJavaScriptEnabled(true);
 
-        brow.loadUrl("https://google.com.vn");
-        addEvent();
+        brow.loadUrl("https://google.com.vn/");
     }
     public void addEvent()
     {
-        go.setOnClickListener(new View.OnClickListener() {
+        /*go.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 String editextvalue = urledit.getText().toString();
@@ -74,7 +80,7 @@ public class MainActivity extends AppCompatActivity {
                 InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
                 imm.hideSoftInputFromWindow(urledit.getWindowToken(),0);
             }
-        });
+        });*/
 
         forward.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -112,14 +118,15 @@ public class MainActivity extends AppCompatActivity {
                         (keyCode == KeyEvent.KEYCODE_ENTER)) {
                     // Perform action on key press
                     String editextvalue = urledit.getText().toString();
-
+                    String fixedURL="";
                     if(!editextvalue.startsWith("http://"))
-                        editextvalue = "http://" + editextvalue;
+                        fixedURL= "http://" + editextvalue;
 
-                    String url = editextvalue.replace(" ","");
-                    brow.loadUrl(url);
-
-                    //Hide keyboard after using EditText
+                    if(Patterns.WEB_URL.matcher(fixedURL).matches())
+                        brow.loadUrl(fixedURL);
+                    else
+                        brow.loadUrl("https://www.google.com/search?q="+editextvalue);
+                 //Hide keyboard after using EditText
                     InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
                     imm.hideSoftInputFromWindow(urledit.getWindowToken(),0);
                     return true;
