@@ -117,15 +117,15 @@ public class MainActivity extends AppCompatActivity {
                 if ((event.getAction() == KeyEvent.ACTION_DOWN) &&
                         (keyCode == KeyEvent.KEYCODE_ENTER)) {
                     // Perform action on key press
-                    String editextvalue = urledit.getText().toString();
+                    String value = urledit.getText().toString();
                     String fixedURL="";
-                    if(!editextvalue.startsWith("http://"))
-                        fixedURL= "http://" + editextvalue;
+                    if(!value.startsWith("http://"))
+                        fixedURL= "http://" + value;
 
                     if(Patterns.WEB_URL.matcher(fixedURL).matches())
                         brow.loadUrl(fixedURL);
                     else
-                        brow.loadUrl("https://www.google.com/search?q="+editextvalue);
+                        brow.loadUrl("https://www.google.com/search?q="+value);
                  //Hide keyboard after using EditText
                     InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
                     imm.hideSoftInputFromWindow(urledit.getWindowToken(),0);
