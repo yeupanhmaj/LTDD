@@ -22,7 +22,7 @@ import android.widget.ProgressBar;
 public class MainActivity extends AppCompatActivity {
     WebView brow;
     EditText urledit;
-    Button go,forward,back,clear,reload;
+    Button go,forward,back,reload;
     ProgressBar progressBar;
 
     @Override
@@ -31,16 +31,18 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         AppCenter.start(getApplication(), "27ec27cf-7dec-4dbc-bed5-ff74c39284a4",
                 Analytics.class, Crashes.class);
-        progressBar = (ProgressBar)findViewById(R.id.progressBar);
-        brow= (WebView)findViewById(R.id.wv_brow);
-        urledit = (EditText)findViewById(R.id.et_url);
-        //go = (Button)findViewById(R.id.btn_go);
-        forward = (Button)findViewById(R.id.btn_fwd);
-        back = (Button)findViewById(R.id.btn_bck);
-        clear = (Button)findViewById(R.id.btn_clear);
-        reload = (Button)findViewById(R.id.btn_reload);
+        addControl();
         setupBrow(brow);
         addEvent();
+    }
+    private void addControl()
+    {
+        progressBar = findViewById(R.id.progressBar);
+        brow= findViewById(R.id.wv_brow);
+        urledit = findViewById(R.id.et_url);
+        forward = findViewById(R.id.btn_fwd);
+        back = findViewById(R.id.btn_bck);
+        reload = findViewById(R.id.btn_reload);
     }
     public void setupBrow(WebView brow)
     {
@@ -65,22 +67,6 @@ public class MainActivity extends AppCompatActivity {
     }
     public void addEvent()
     {
-        /*go.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                String editextvalue = urledit.getText().toString();
-
-                if(!editextvalue.startsWith("http://"))
-                    editextvalue = "http://" + editextvalue;
-
-                String url = editextvalue.replace(" ","");
-                brow.loadUrl(url);
-
-                //Hide keyboard after using EditText
-                InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
-                imm.hideSoftInputFromWindow(urledit.getWindowToken(),0);
-            }
-        });*/
 
         forward.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -105,12 +91,6 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        clear.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                brow.clearHistory();
-            }
-        });
         urledit.setOnKeyListener(new View.OnKeyListener() {
             public boolean onKey(View v, int keyCode, KeyEvent event) {
                 // If the event is a key-down event on the "enter" button
