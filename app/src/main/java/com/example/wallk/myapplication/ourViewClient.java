@@ -11,6 +11,7 @@ public class ourViewClient extends WebViewClient {
 
     @SuppressWarnings("deprecation")
     @Override
+    //hàm kế thừa lại WebViewClient
     public boolean shouldOverrideUrlLoading(WebView view, String url) {
         view.loadUrl(url);
         return true;

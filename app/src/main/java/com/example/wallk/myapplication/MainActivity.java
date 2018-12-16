@@ -35,7 +35,7 @@ public class MainActivity extends AppCompatActivity {
         setupBrow(brow);
         addEvent();
     }
-    private void addControl()
+    private void addControl()//hàm tham chiếu tới các control trên layout
     {
         progressBar = findViewById(R.id.progressBar);
         brow= findViewById(R.id.wv_brow);
@@ -44,6 +44,8 @@ public class MainActivity extends AppCompatActivity {
         back = findViewById(R.id.btn_bck);
         reload = findViewById(R.id.btn_reload);
     }
+    //thiết lập các thông số cho browser và thanh progress bar
+    //người thực hiện : Nguyễn Minh Hoàng
     public void setupBrow(WebView brow)
     {
         brow.setWebViewClient(new ourViewClient());
@@ -65,6 +67,9 @@ public class MainActivity extends AppCompatActivity {
 
         brow.loadUrl("https://google.com.vn/");
     }
+
+    //hàm thêm các event vào cho các control
+    //người thực hiện : Võ Trường Duy
     public void addEvent()
     {
 
@@ -74,7 +79,7 @@ public class MainActivity extends AppCompatActivity {
                 if(brow.canGoForward())
                     brow.goForward();
             }
-        });
+        });//event của nút forward
 
         back.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -82,14 +87,14 @@ public class MainActivity extends AppCompatActivity {
                 if(brow.canGoBack())
                     brow.goBack();
             }
-        });
+        });//event của nút back
 
         reload.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 brow.reload();
             }
-        });
+        });//event của nút reload
 
         urledit.setOnKeyListener(new View.OnKeyListener() {
             public boolean onKey(View v, int keyCode, KeyEvent event) {

@@ -7,7 +7,9 @@
     android:orientation="vertical"
     tools:context=".MainActivity">
 
-
+    <!--giao diện chính của app
+        người thực hiện: Phạm Văn Tổng
+     -->
     <LinearLayout
         android:id="@+id/ll_urlgo"
         android:layout_width="match_parent"
